@@ -12,5 +12,7 @@ router.get('/', function(req, res, next) {
 router.post("/rolelistening",usercontroller.rolelistening)
 router.post("/profilesetup",authenticateJWT,usercontroller.profilesetuup)
 router.post("/prfilesetup@",authenticateJWT,usercontroller.socialmedia)
+//
+router.delete("/deleteuser",usercontroller.deleteuser)
 
 module.exports = router;

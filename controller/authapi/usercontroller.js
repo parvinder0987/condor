@@ -86,4 +86,23 @@ module.exports = {
         .json({ success: false, message: "Internal server error" });
     }
   },
+  deleteuser:async(req,res)=>{
+    try {
+
+        const userId = req.body.id
+        const deledata = await User.destroy({where:{id:userId}})
+
+         if(deledata){
+                res.status(200).send("data will be deleted")
+            }else{
+                res.status(500).send("internal error")
+            }
+    } catch (error) {
+        console.log(error,"error=>")
+        return res.send({
+            success:false,
+            status:500
+        })
+    }
+  }
 };
