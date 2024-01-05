@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const db = require("./db/connection")
 const cors = require("cors")
+const fileUpload = require("express-fileupload")
 const dotenv = require("dotenv");
 
 require("dotenv").config();
@@ -15,6 +16,9 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 app.use(cors());
+// npm i express-fileuploa
+
+app.use(fileUpload());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

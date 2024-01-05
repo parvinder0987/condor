@@ -31,7 +31,7 @@ login: async (req, res) => {
         return res.status(400).json({ message: errors });
       }
       const user = await User.findOne({
-        where: { Email: Email },
+        where: { Email: Email ,role:0},
         raw: true,
       });
 
