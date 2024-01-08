@@ -89,6 +89,9 @@ module.exports = {
   deleteuser:async(req,res)=>{
     try {
 
+
+      console.log(req.body.id,'==--=-=-=--=-==--=-=-=-=')
+
         const userId = req.body.id
         const deledata = await User.destroy({where:{id:userId}})
 
@@ -100,9 +103,10 @@ module.exports = {
     } catch (error) {
         console.log(error,"error=>")
         return res.send({
-            success:false,
-            status:500
-        })
+          success: false,
+          status: 500,
+          err: error.message
+        });
     }
   }
 };

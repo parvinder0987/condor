@@ -15,13 +15,13 @@ module.exports = {
       });
     } catch (error) {
       console.log(error);
-      res.status(400).send("internal error");
+      res.status(400).send("internal");
     }
   },
 login: async (req, res) => {
     try {
       const { Email, password } = req.body;
-      console.log(req.body);
+      // console.log(req.body);
       const validation = new Validator(req.body, {
         Email: "required|email",
         password: "required",
@@ -31,7 +31,7 @@ login: async (req, res) => {
         return res.status(400).json({ message: errors });
       }
       const user = await User.findOne({
-        where: { Email: Email ,role:0},
+        where: { Email: Email ,role:1},
         raw: true,
       });
 
