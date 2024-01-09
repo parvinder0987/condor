@@ -13,6 +13,9 @@ router.post("/rolelistening",usercontroller.rolelistening)
 router.post("/profilesetup",authenticateJWT,usercontroller.profilesetuup)
 router.post("/prfilesetup@",authenticateJWT,usercontroller.socialmedia)
 //
-router.delete("/deleteuser",usercontroller.deleteuser)
+router.delete("/deleteuser/:id",usercontroller.deleteuser)
+router.get("/viewdata/:id",usercontroller.getdataofuser)
+
+router.post("/statuschange",usercontroller.statuschange)
 
 module.exports = router;

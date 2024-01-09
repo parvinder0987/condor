@@ -78,7 +78,7 @@ module.exports = {
           message: "No users are available for this role.",
         });
       }
-    //   res.json({user})
+      //   res.json({user})
     } catch (error) {
       console.error(error);
       res
@@ -86,27 +86,68 @@ module.exports = {
         .json({ success: false, message: "Internal server error" });
     }
   },
-  deleteuser:async(req,res)=>{
+  deleteuser: async (req, res) => {
     try {
+      // console.log(req.body.id,'==--=-=-=--=-==--=-=-=-=')
 
+      const userId = req.params.id;
+      const deledata = await User.destroy({ where: { id: userId } });
 
-      console.log(req.body.id,'==--=-=-=--=-==--=-=-=-=')
-
-        const userId = req.body.id
-        const deledata = await User.destroy({where:{id:userId}})
-
-         if(deledata){
-                res.status(200).send("data will be deleted")
-            }else{
-                res.status(500).send("internal error")
-            }
+      if (deledata) {
+        res.status(200).send("data will be deleted");
+      } else {
+        res.status(500).send("internal error");
+      }
     } catch (error) {
-        console.log(error,"error=>")
-        return res.send({
-          success: false,
-          status: 500,
-          err: error.message
-        });
+      console.log(error, "error=>");
+      return res.send({
+        success: false,
+        status: 500,
+        err: error.message,
+      });
     }
-  }
+  },
+  getdataofuser: async (req, res) => {
+    try {
+      const userID = req.params.id;
+      const getdata = await User.findByPk(userID);
+      res.send(getdata);
+    } catch (error) {
+      console.log("error===>", error);
+      return res.send({ error });
+    }
+  },
+  statuschange: async (req, res) => {
+    try {
+      const { id, Status } = req.body;
+
+      const user = await User.findByPk(id);
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+      const updatedUser = await user.update({ Status });
+
+      res.status(200).send(updatedUser);
+    } catch (error) {
+      console.log("error========>", error);
+      res.status(500).send("Internal server error");
+    }
+  },
+  //  this is backend code 
+  // const changestatus = (id, currentStatus) => {
+  //     axios.post('http://your-backend-url/statuschange', {
+  //         id: id,
+  //         status: currentStatus === 1 ? 0 : 1  // Toggle the status
+  //     })
+  //     .then(response => {
+  //         // Handle successful response
+  //         console.log("Status updated:", response.data);
+  //         // Optionally, refresh the data to reflect the change
+  //     })
+  //     .catch(error => {
+  //         // Handle error
+  //         console.log("Error updating status:", error);
+  //     });
+  // };
+  // /cthis is frontend code can u check backend code aftr arrange this frotend code     then i change status through frontend and backend is right but cna u create a frontend code  of this cde check 
 };

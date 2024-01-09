@@ -29,6 +29,9 @@ const user = sequelize.define("user", {
   otp_verify: {
     type: DataTypes.STRING,
   },
+  Status:{
+    type:DataTypes.STRING
+  },
   sportsPlay: {
     type: DataTypes.STRING,
   },

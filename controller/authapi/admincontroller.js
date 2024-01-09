@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { Validator } = require("node-input-validator");
 const helper = require("../../middlewear/helper");
-// const user = require("../../models/usermodels");
 
 module.exports = {
   signup: async (req, res) => {
@@ -31,7 +30,7 @@ login: async (req, res) => {
         return res.status(400).json({ message: errors });
       }
       const user = await User.findOne({
-        where: { Email: Email ,role:1},
+        where: { Email: Email ,role:0},
         raw: true,
       });
 
@@ -129,8 +128,6 @@ updatedetails: async (req, res) => {
           status: 404,
         });
       }
-      // console.log(userId,"==========")
-      // console.log(user,"============");return
       const updata = await User.update(req.body, { where: { id: user.id } });
 
       if (updata[0] > 0) {
