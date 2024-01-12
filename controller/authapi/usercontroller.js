@@ -133,6 +133,17 @@ module.exports = {
       res.status(500).send("Internal server error");
     }
   },
+  updateuserdetails:async(req,res)=>{
+    try {
+      const userId = req.params.id
+
+      const updateuser = await User.update({
+        
+      })
+    } catch (error) {
+      console.log("internal error",error);
+    }
+  }
   //  this is backend code 
   // const changestatus = (id, currentStatus) => {
   //     axios.post('http://your-backend-url/statuschange', {
