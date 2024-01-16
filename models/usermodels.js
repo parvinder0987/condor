@@ -29,14 +29,18 @@ const user = sequelize.define("user", {
   otp_verify: {
     type: DataTypes.STRING,
   },
-  Status:{
-    type:DataTypes.STRING
+  Status: {
+    type: DataTypes.STRING,
   },
   sportsPlay: {
     type: DataTypes.STRING,
   },
-  College: {
-    type: DataTypes.STRING,
+  College_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: "Colleges",
+      key: "id",
+    },
   },
   tiktok_Id: {
     type: DataTypes.STRING,
@@ -51,7 +55,7 @@ const user = sequelize.define("user", {
   Price: {
     type: DataTypes.STRING,
   },
-  ProfileImage: {
+  profile_pic: {
     type: DataTypes.STRING,
   },
   Notification: {

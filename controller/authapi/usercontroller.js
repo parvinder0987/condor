@@ -88,11 +88,8 @@ module.exports = {
   },
   deleteuser: async (req, res) => {
     try {
-      // console.log(req.body.id,'==--=-=-=--=-==--=-=-=-=')
-
       const userId = req.params.id;
       const deledata = await User.destroy({ where: { id: userId } });
-
       if (deledata) {
         res.status(200).send("data will be deleted");
       } else {
@@ -138,27 +135,16 @@ module.exports = {
       const userId = req.params.id
 
       const updateuser = await User.update({
-        
+        where:{
+          id:userId
+        }
+  
       })
+      res.json({ updateuser });
+
     } catch (error) {
       console.log("internal error",error);
+      res.send("internal error")
     }
   }
-  //  this is backend code 
-  // const changestatus = (id, currentStatus) => {
-  //     axios.post('http://your-backend-url/statuschange', {
-  //         id: id,
-  //         status: currentStatus === 1 ? 0 : 1  // Toggle the status
-  //     })
-  //     .then(response => {
-  //         // Handle successful response
-  //         console.log("Status updated:", response.data);
-  //         // Optionally, refresh the data to reflect the change
-  //     })
-  //     .catch(error => {
-  //         // Handle error
-  //         console.log("Error updating status:", error);
-  //     });
-  // };
-  // /cthis is frontend code can u check backend code aftr arrange this frotend code     then i change status through frontend and backend is right but cna u create a frontend code  of this cde check 
 };

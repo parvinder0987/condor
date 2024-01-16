@@ -14,4 +14,8 @@ router.get("/adminprofile",authenticateJWT,admincontroller.getprofile)
 router.post("/update",authenticateJWT,admincontroller.updatedetails)
 
 
+router.post("/collegecreate", admincontroller.createCollege);
+
+
+
 module.exports = router;

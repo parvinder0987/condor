@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { Validator } = require("node-input-validator");
 const helper = require("../../middlewear/helper");
+const college = require("../../models/collegemodels")
 
 module.exports = {
   signup: async (req, res) => {
@@ -17,7 +18,7 @@ module.exports = {
       res.status(400).send("internal");
     }
   },
-login: async (req, res) => {
+  login: async (req, res) => {
     try {
       const { Email, password } = req.body;
       // console.log(req.body);
@@ -30,7 +31,7 @@ login: async (req, res) => {
         return res.status(400).json({ message: errors });
       }
       const user = await User.findOne({
-        where: { Email: Email ,role:0},
+        where: { Email: Email, role: 0 },
         raw: true,
       });
 
@@ -41,7 +42,7 @@ login: async (req, res) => {
         req.body.password,
         user.password
       );
- 
+
       if (!isPasswordValid) {
         return res.status(401).json({ message: "Invalid password" });
       }
@@ -52,7 +53,7 @@ login: async (req, res) => {
       res.status(500).json({ message: error.message });
     }
   },
-Changepasword: async (req, res) => {
+  Changepasword: async (req, res) => {
     try {
       const userId = req.user.id;
       const { oldpassword, Newpassword, confrimpassword } = req.body;
@@ -101,7 +102,7 @@ Changepasword: async (req, res) => {
       res.status(401).send("internla error");
     }
   },
-getprofile: async (req, res) => {
+  getprofile: async (req, res) => {
     const userId = req.user.id;
     try {
       const indata = await User.findByPk(userId);
@@ -116,7 +117,7 @@ getprofile: async (req, res) => {
       return res.status(402).send("internal error");
     }
   },
-updatedetails: async (req, res) => {
+  updatedetails: async (req, res) => {
     try {
       const userId = req.user.id;
       const { name, email } = req.body;
@@ -153,8 +154,24 @@ updatedetails: async (req, res) => {
       });
     }
   },
+createCollege: async (req, res) => {
+  try {
 
+    const data = await college.create({
+      college:req.body.college
+    });
 
+    return res.status(200).send({
+      message: "College created successfully",
+      data: data,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+}
 
-  
-};
+}
