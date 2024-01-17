@@ -18,7 +18,7 @@ router.delete("/deleteuser/:id",usercontroller.deleteuser)
 router.get("/viewdata/:id",usercontroller.getdataofuser)
 
 router.post("/statuschange",usercontroller.statuschange)
-router.post("/dataupdated/:id",usercontroller.updateuserdetails)
+// router.post("/dataupdated/:id",usercontroller.updateuserdetails)
 
 
 //........college..........

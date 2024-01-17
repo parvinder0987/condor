@@ -129,22 +129,5 @@ module.exports = {
       console.log("error========>", error);
       res.status(500).send("Internal server error");
     }
-  },
-  updateuserdetails:async(req,res)=>{
-    try {
-      const userId = req.params.id
-
-      const updateuser = await User.update({
-        where:{
-          id:userId
-        }
-  
-      })
-      res.json({ updateuser });
-
-    } catch (error) {
-      console.log("internal error",error);
-      res.send("internal error")
-    }
   }
 };

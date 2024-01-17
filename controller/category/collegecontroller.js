@@ -1,5 +1,5 @@
 const college = require("../../models/collegemodels");
-
+const userModal = require('../../models/usermodels')
 module.exports = {
   getcollege: async (req, res) => {
     try {
@@ -26,7 +26,7 @@ module.exports = {
   statuschange: async (req, res) => {
     try {
       const { id, Status } = req.body;
-
+console.log(req.body,'=-=-=-=-=-=-=-=-=-=-')
       const collegeExists = await college.findByPk(id);
       if (!collegeExists) {
         return res.status(404).send("College not found");
@@ -60,55 +60,74 @@ module.exports = {
       });
     }
   },
-  viewdata:async(req,res)=>{
-     try {
-       const userID = req.params.id;
-       const getdata = await college.findByPk(userID);
-       res.send(getdata);
-     } catch (error) {
-       console.log("error===>", error);
-       return res.send({ error });
-     }
-  },
-  updatecollegedata:async(req,res)=>{
+  viewdata: async (req, res) => {
     try {
-    const userId = req.params.id;
-    const { College, status } = req.body;
+      const userID = req.params.id;
+      const getdata = await college.findByPk(userID);
+      res.send(getdata);
+    } catch (error) {
+      console.log("error===>", error);
+      return res.send({ error });
+    }
+  },
+  updatecollegedata: async (req, res) => {
+    try {
+      let data;
+      let Model = userModal;
+      console.log(req.body);
 
-    var user = await college.findByPk(userId);
-    if (!user) {
-      return res.status(404).json({
+      switch (req.body.page) {
+        case "college":
+          data = { college: req.body.college, status: req.body.status };
+           Model = college;
+          break;
+        case "corporation":
+          data = {
+            Name: req.body.Name,
+            Email: req.body.Email,
+            location: req.body.location,
+            Phonenumber: req.body.Phonenumber,
+            bio: req.body.bio,
+            Price: req.body.Price,
+            tiktok_Id: req.body.tiktok_Id,
+            insta_Id: req.body.insta_Id,
+            twitter_Id: req.body.twitter_Id,
+          };
+          break;
+        case "athlete":
+          data = {
+            Name: req.body.Name,
+            Email: req.body.Email,
+            location: req.bod.location,
+            Phonenumber: req.body.Phonenumber,
+            bio: req.body.bio,
+            Price: req.body.Price,
+            tiktok_Id: req.body.tiktok_Id,
+            insta_Id: req.body.insta_Id,
+            twitter_Id: req.body.twitter_Id,
+          };
+          break;
+        default:
+          res.json("case invalid");
+      }
+      const userId = req.params.id;
+      var user = await Model.findByPk(userId);
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+          status: 404,
+        });
+      }
+      var updateData = await Model.update(data, { where: { id: userId } });
+      return res.send({ message: "Data updated" });
+    } catch (error) {
+      console.error("error=====", error);
+      return res.status(500).json({
         success: false,
-        message: "User not found",
-        status: 404,
+        message: "Internal server error",
+        status: 500,
       });
     }
-    const updateData = await college.update(req.body, { where: { id: userId } });
-
-    var user = await college.findByPk(userId);
-
-
-    if (updateData[0] > 0) {
-      return res.json({
-        body: user,
-        success: true,
-        message: "User updated successfully",
-        status: 200,
-      });
-    } else {
-      return res.status(404).json({
-        success: false,
-        message: "No changes made to the user",
-        status: 404,
-      });
-    }
-  } catch (error) {
-    console.error("error=====", error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-      status: 500,
-    });
-  }
-}
-}
+  },
+};
