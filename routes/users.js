@@ -5,6 +5,7 @@ const collegecontroller = require('../controller/category/collegecontroller');
 const Cmscontroller = require('../controller/Cms/Cmscontroller');
 const Cms = require('../models/Cmsmodels');
 const sportscontroller = require('../controller/category/sportscontroller');
+const ratingcontroller = require('../controller/category/rating/ratingcontroller');
 var router = express.Router();
 
 /* GET users listing. */
@@ -46,4 +47,12 @@ router.post("/privacyupdated",Cmscontroller.privacyupdate)
 router.get("/getdata/:id",sportscontroller.categoryget)
 router.get("/getallcategory",sportscontroller.categoryallget)
 router.post("/statusupdate",sportscontroller.categorychangestatus)
+router.delete("/categorydelete/:id",sportscontroller.categoryDelete)
+
+
+// ratings
+router.post("/submit_rating", ratingcontroller.submit_rating);
+router.get("/ratingalldata", ratingcontroller.rating_alldata);
+
+
 module.exports = router;
