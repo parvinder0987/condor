@@ -6,9 +6,10 @@ const Cmscontroller = require('../controller/Cms/Cmscontroller');
 const Cms = require('../models/Cmsmodels');
 const sportscontroller = require('../controller/category/sportscontroller');
 const ratingcontroller = require('../controller/category/rating/ratingcontroller');
+const dashboardcontroller = require('../controller/Dashboard/dashboardcontroller');
 var router = express.Router();
 
-/* GET users listing. */
+
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
@@ -22,8 +23,6 @@ router.delete("/deleteuser/:id",usercontroller.deleteuser)
 router.get("/viewdata/:id",usercontroller.getdataofuser)
 
 router.post("/statuschange",usercontroller.statuschange)
-// router.post("/dataupdated/:id",usercontroller.updateuserdetails)
-
 
 //........college..........
 
@@ -48,11 +47,19 @@ router.get("/getdata/:id",sportscontroller.categoryget)
 router.get("/getallcategory",sportscontroller.categoryallget)
 router.post("/statusupdate",sportscontroller.categorychangestatus)
 router.delete("/categorydelete/:id",sportscontroller.categoryDelete)
+router.post("/addsports",sportscontroller.addsports)
 
 
 // ratings
 router.post("/submit_rating", ratingcontroller.submit_rating);
 router.get("/ratingalldata", ratingcontroller.rating_alldata);
+router.delete("/deleterating/:id",ratingcontroller.delete_rating)
+router.get("/rating_get/:id",ratingcontroller.rating_getdata)
+router.post("/rating_update/:id",ratingcontroller.rating_update)
+
+//  dashboard//
+router.get("/dashboardgetdata",dashboardcontroller.Dashboard)
+
 
 
 module.exports = router;

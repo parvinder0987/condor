@@ -13,6 +13,9 @@ const Rating = sequelize.define("Rating", {
   rating_to: {
     type: DataTypes.INTEGER,
   },
+  message: {
+    type: DataTypes.STRING,
+  },
   rating: {
     type: DataTypes.DOUBLE,
   },
