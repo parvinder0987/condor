@@ -58,6 +58,9 @@ const user = sequelize.define("user", {
   profile_pic: {
     type: DataTypes.STRING,
   },
+  Achievments:{
+    type:DataTypes.STRING
+  },
   Notification: {
     type: DataTypes.STRING,
   },

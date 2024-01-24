@@ -62,26 +62,28 @@ module.exports = {
     }
   },
   rating_update: async (req, res) => {
-     try {
-       const userId = req.params.id;
-       console.log(userId,"userID")
-       var user = await Rating.findByPk(userId);
-       if (!user) {
-         return res.status(404).json({
-           success: false,
-           message: "User not found",
-           status: 404,
-         });
-       }
-       var updateData = await Rating.update(user, { where: { id: userId } });
-       return res.send({ message: "Data updated" });
-     } catch (error) {
-       console.error("error=====", error);
-       return res.status(500).json({
-         success: false,
-         message: "Internal server error",
-         status: 500,
-       });
-     }
+    try {
+      const userId = req.params.id;
+      const updateData = req.body; 
+
+      const user = await Rating.findByPk(userId);
+      if (!user) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+          status: 404,
+        });
+      }
+      await Rating.update(updateData, { where: { id: userId } });
+
+      return res.send({ message: "Data updated" });
+    } catch (error) {
+      console.error("error=====", error);
+      return res.status(500).json({
+        success: false,
+        message: "Internal server error",
+        status: 500,
+      });
+    }
   },
 };
