@@ -23,6 +23,7 @@ module.exports = {
   rating_alldata: async (req, res) => {
     try {
       const ratings = await Rating.findAll();
+ 
       res.json(ratings);
     } catch (error) {
       console.error("Error fetching Rating:", error);
