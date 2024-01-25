@@ -121,7 +121,8 @@ module.exports = {
       return res.send({
         data: updatedCms,
         success: true,
-        message: "CMS content updated successfully",
+        message: "CMS content updated successfully",  
+        
       });
     } catch (error) {
       console.log("Internal error", error);
