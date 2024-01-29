@@ -172,6 +172,28 @@ createCollege: async (req, res) => {
       error: error.message,
     });
   }
-}
+},
+adminImageUpdate:async(req,res)=>{
+  try {
+     let profile_pic = null;
+    if (req.files && req.files.profile_pic) {
+      profile_pic = req.files.profile_pic;
+      profile_pic = await helper.fileUpload(profile_pic);
+    }
+     await User.update(
+       { profile_pic: profile_pic },
+       { where: { id: req.user.id } } 
+     );
 
+    res.status(200).json({
+      success: true,
+      message: "Image updated successfully",
+      data: { profile_pic: profile_pic }
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+
+}
 }

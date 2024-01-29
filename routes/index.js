@@ -12,6 +12,7 @@ router.post('/login',admincontroller.login)
 router.post("/changepassword",authenticateJWT,admincontroller.Changepasword)
 router.get("/adminprofile",authenticateJWT,admincontroller.getprofile)
 router.post("/update",authenticateJWT,admincontroller.updatedetails)
+router.post("/adminImageupdate", authenticateJWT, admincontroller.adminImageUpdate);
 
 
 router.post("/collegecreate", admincontroller.createCollege);
